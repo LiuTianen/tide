@@ -8,7 +8,7 @@ var Tide = window.Tide || {};
 window.Tide = Tide;
 
 const DB_NAME = 'tide';
-const DB_VERSION = 3;
+const DB_VERSION = 5;
 
 let _db = null;
 
