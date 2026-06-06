@@ -91,8 +91,26 @@ window.Router = {
       topbar.appendChild(span);
     }
 
-    // 更新底部导航 active 状态
+    // 更新底部导航 active 状态（如果为空则重建）
     if (navbar) {
+      if (!navbar.querySelector('.nav-item')) {
+        // 导航栏被清空了，重建
+        const navItems = [
+          { view: 'home',     emoji: '📝', label: '记账' },
+          { view: 'list',     emoji: '📋', label: '流水' },
+          { view: 'stats',    emoji: '📊', label: '统计' },
+          { view: 'settings', emoji: '⚙️', label: '设置' }
+        ];
+        navbar.innerHTML = '';
+        navItems.forEach(function(ni) {
+          const el = document.createElement('div');
+          el.className = 'nav-item';
+          el.setAttribute('data-view', ni.view);
+          el.innerHTML = '<span style="font-size:20px;">' + ni.emoji + '</span><span>' + ni.label + '</span>';
+          el.addEventListener('click', function() { Router.go(ni.view); });
+          navbar.appendChild(el);
+        });
+      }
       const items = navbar.querySelectorAll('.nav-item');
       items.forEach(function(item) {
         const href = item.getAttribute('data-view');
