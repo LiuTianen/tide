@@ -74,18 +74,20 @@
   }
 
   // --- 从 token 恢复用户名 ---
-  function restoreUser() {
+  async function restoreUser() {
     const token = Tide.getToken();
     if (!token) return;
-    // 尝试从 token 中解析用户名（简化处理）
+    // 用 verify 端点验证 token 并获取用户名
     try {
-      const payload = token.split('.')[1];
-      if (payload) {
-        const decoded = JSON.parse(atob(payload));
-        Tide.currentUser = decoded.username || decoded.sub || '';
+      const result = await Tide.apiFetch('/auth/verify', {
+        method: 'POST',
+        body: JSON.stringify({ token: token })
+      });
+      if (result.valid && result.username) {
+        Tide.currentUser = result.username;
       }
     } catch (e) {
-      Tide.currentUser = '';
+      // 网络不通或其他问题，保持 currentUser 为空
     }
   }
 
@@ -124,11 +126,15 @@
     if (!token) return false;
 
     try {
-      await Tide.apiGet('/auth/me');
-      return true;
+      const result = await Tide.apiFetch('/auth/verify', {
+        method: 'POST',
+        body: JSON.stringify({ token: token })
+      });
+      return result.valid === true;
     } catch (e) {
-      Tide.clearToken();
-      return false;
+      // 网络错误不当作 token 失效，保持已登录状态
+      // 只有在明确返回 valid:false 时才清除
+      return !!token; // 保守策略：有 token 就认为已登录
     }
   }
 

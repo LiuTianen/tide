@@ -54,9 +54,9 @@ Tide.apiFetch = async function(path, opts) {
   // 401 → 清除 token 并跳转登录
   if (res.status === 401) {
     Tide.clearToken();
-    if (window.Router && Router.go) {
-      Router.go('login');
-    } else {
+    if (window.Router && window.Router.go && window.Router._current !== 'login') {
+      window.Router.go('login');
+    } else if (!window.Router || !window.Router._current) {
       window.location.hash = '#login';
     }
     throw new Error('Unauthorized');
