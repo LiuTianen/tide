@@ -90,7 +90,7 @@ Tide.Categories = {
     // 图标选择面板（默认隐藏）
     const picker = document.createElement('div');
     picker.id = 'icon-picker-panel';
-    picker.style.cssText = 'display:none;margin-top:8px;padding:8px;background:var(--bg-card);border-radius:var(--radius);display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-height:200px;overflow-y:auto;';
+    picker.style.cssText = 'display:none;margin-top:8px;padding:8px;background:var(--bg-card);border-radius:var(--radius);max-height:200px;overflow-y:auto;';
     Tide.CategoryIcons.forEach(function(ic) {
       const item = document.createElement('button');
       item.textContent = ic;
@@ -130,6 +130,10 @@ Tide.Categories = {
     if (!picker) return;
     this._pickerVisible = !this._pickerVisible;
     picker.style.display = this._pickerVisible ? 'grid' : 'none';
+    if (this._pickerVisible) {
+      picker.style.gridTemplateColumns = 'repeat(8,1fr)';
+      picker.style.gap = '4px';
+    }
 
     // 点击其他地方关闭
     if (this._pickerVisible) {
