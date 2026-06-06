@@ -4,7 +4,7 @@
 // 潮汐 (Tide) — API 通信层
 // ============================================================
 
-const Tide = window.Tide || {};
+var Tide = window.Tide || {};
 window.Tide = Tide;
 
 const API_BASE = '/tide/api';

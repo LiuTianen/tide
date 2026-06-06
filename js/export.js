@@ -4,7 +4,7 @@
 // 潮汐 (Tide) — 导入/导出逻辑
 // ============================================================
 
-const Tide = window.Tide || {};
+var Tide = window.Tide || {};
 window.Tide = Tide;
 
 Tide.Export = {

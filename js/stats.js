@@ -4,7 +4,7 @@
 // 潮汐 (Tide) — 统计页
 // ============================================================
 
-const Tide = window.Tide || {};
+var Tide = window.Tide || {};
 window.Tide = Tide;
 
 Tide.Stats = {

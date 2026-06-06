@@ -4,7 +4,7 @@
 // 潮汐 (Tide) — 登录/注册
 // ============================================================
 
-const Tide = window.Tide || {};
+var Tide = window.Tide || {};
 window.Tide = Tide;
 
 /**

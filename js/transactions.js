@@ -4,7 +4,7 @@
 // 潮汐 (Tide) — 记账 + 交易列表
 // ============================================================
 
-const Tide = window.Tide || {};
+var Tide = window.Tide || {};
 window.Tide = Tide;
 
 Tide.Transactions = {

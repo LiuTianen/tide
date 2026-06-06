@@ -4,7 +4,7 @@
 // 潮汐 (Tide) — IndexedDB 封装
 // ============================================================
 
-const Tide = window.Tide || {};
+var Tide = window.Tide || {};
 window.Tide = Tide;
 
 const DB_NAME = 'tide';
