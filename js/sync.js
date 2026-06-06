@@ -21,15 +21,16 @@ Tide.syncPull = async function() {
     }
 
     const changes = data.changes;
-    const latestVersion = data.latest_version || localVersion;
+    const latestVersion = data.version || localVersion;
 
     for (let i = 0; i < changes.length; i++) {
       const ch = changes[i];
-      if (ch.type === 'delete') {
-        await Tide.dbDelete('transactions', ch.id);
+      const storeName = ch.table || 'transactions';
+      if (ch.action === 'delete') {
+        await Tide.dbDelete(storeName, ch.data.id);
       } else {
         // insert or update
-        await Tide.dbPut('transactions', ch.data);
+        await Tide.dbPut(storeName, ch.data);
       }
     }
 

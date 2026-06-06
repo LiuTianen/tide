@@ -126,16 +126,16 @@ Tide.Stats = {
     txs.forEach(function(tx) {
       if (tx.type === 'expense') {
         totalExpense += tx.amount;
-        if (!catExpense[tx.category_name]) {
-          catExpense[tx.category_name] = { amount: 0, emoji: tx.category_emoji || '💰' };
+        if (!catExpense[tx.category || tx.category_name]) {
+          catExpense[tx.category || tx.category_name] = { amount: 0, emoji: tx.category_emoji || '💰' };
         }
-        catExpense[tx.category_name].amount += tx.amount;
+        catExpense[tx.category || tx.category_name].amount += tx.amount;
       } else {
         totalIncome += tx.amount;
-        if (!catIncome[tx.category_name]) {
-          catIncome[tx.category_name] = { amount: 0, emoji: tx.category_emoji || '💰' };
+        if (!catIncome[tx.category || tx.category_name]) {
+          catIncome[tx.category || tx.category_name] = { amount: 0, emoji: tx.category_emoji || '💰' };
         }
-        catIncome[tx.category_name].amount += tx.amount;
+        catIncome[tx.category || tx.category_name].amount += tx.amount;
       }
     });
 

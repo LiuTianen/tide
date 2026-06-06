@@ -33,7 +33,7 @@ Tide.Export = {
         const row = [
           tx.date || '',
           type,
-          '"' + (tx.category_name || '').replace(/"/g, '""') + '"',
+          '"' + (tx.category || tx.category_name || '').replace(/"/g, '""') + '"',
           amount.toFixed(2),
           '"' + (tx.note || '').replace(/"/g, '""') + '"'
         ];

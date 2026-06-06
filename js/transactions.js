@@ -189,7 +189,7 @@ Tide.Transactions = {
       amount: amount,
       type: self._type,
       category_id: self._selectedCatId,
-      category_name: cat ? cat.name : '',
+      category: cat ? cat.name : '',
       category_emoji: cat ? (cat.icon || '💰') : '💰',
       date: dateInput.value || new Date().toISOString().slice(0, 10),
       note: noteInput.value.trim(),
@@ -376,7 +376,7 @@ Tide.Transactions = {
 
         const catName = document.createElement('div');
         catName.className = 'tx-category';
-        catName.textContent = tx.category_name || '未知';
+        catName.textContent = tx.category || tx.category_name || '未知';
         info.appendChild(catName);
 
         if (tx.note) {
