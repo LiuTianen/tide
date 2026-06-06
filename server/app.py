@@ -152,6 +152,7 @@ def init_default_categories(user_id):
         )
         sort += 1
     db.commit()
+    bump_version(user_id)
 
 
 def make_token(username, password_hash):

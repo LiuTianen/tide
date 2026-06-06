@@ -1,9 +1,8 @@
 /* 潮汐 — 页面布局 */
-html,body{height:100%;overflow:hidden;position:fixed;width:100%}
+html,body,#app{height:100%;margin:0;overflow:hidden}
 #app{
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  width:100%;max-width:480px;margin:0 auto;
   display:flex;flex-direction:column;
+  width:100%;max-width:480px;margin:0 auto;
 }
 #topbar{
   flex-shrink:0;
