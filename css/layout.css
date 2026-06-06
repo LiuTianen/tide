@@ -1,7 +1,9 @@
 /* 潮汐 — 页面布局 */
 #app{
+  position:fixed;top:0;bottom:0;
+  left:50%;transform:translateX(-50%);
+  width:100%;max-width:480px;
   display:flex;flex-direction:column;
-  height:100dvh;max-width:480px;margin:0 auto;
 }
 #topbar{
   flex-shrink:0;
@@ -12,6 +14,7 @@
 #topbar h1{font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--gold)}
 #main{
   flex:1;overflow-y:auto;padding:16px;
+  -webkit-overflow-scrolling:touch;
 }
 #navbar{
   flex-shrink:0;
