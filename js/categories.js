@@ -1,13 +1,25 @@
 'use strict';
 
 // ============================================================
-// 潮汐 (Tide) — 分类管理
+// 潮汐 (Tide) — 分类管理（含图标选择器）
 // ============================================================
 
 var Tide = window.Tide || {};
 window.Tide = Tide;
 
+// 预设图标库
+Tide.CategoryIcons = [
+  '🍜','🍕','🍔','☕','🍺','🥗','🍰','🍱',
+  '🚗','🚌','🚇','⛽','🚲','✈️','🚕','🛵',
+  '🛒','👗','👟','💄','📱','💻','🎧','📦',
+  '🎮','🎬','🎵','🏀','⚽','🎨','📚','🎓',
+  '🏠','💡','🔧','🧹','🛏️','🏥','💊','🏦',
+  '💰','📈','🧧','🎁','💳','💼','🐱','📝'
+];
+
 Tide.Categories = {
+  _pickerVisible: false,
+
   /** 在容器中渲染分类管理 UI（由 settings.js 调用） */
   renderManager: function(container) {
     const self = this;
@@ -25,7 +37,7 @@ Tide.Categories = {
     const expenseLabel = document.createElement('div');
     expenseLabel.className = 'label';
     expenseLabel.textContent = '支出';
-    expenseLabel.style.cssText = 'margin-top: 12px; margin-bottom: 8px; color: #ff6b6b;';
+    expenseLabel.style.cssText = 'margin-top:12px;margin-bottom:8px;color:#c94e4e;';
     section.appendChild(expenseLabel);
 
     const expenseList = document.createElement('div');
@@ -36,7 +48,7 @@ Tide.Categories = {
     const incomeLabel = document.createElement('div');
     incomeLabel.className = 'label';
     incomeLabel.textContent = '收入';
-    incomeLabel.style.cssText = 'margin-top: 12px; margin-bottom: 8px; color: #51cf66;';
+    incomeLabel.style.cssText = 'margin-top:12px;margin-bottom:8px;color:#6ebf8b;';
     section.appendChild(incomeLabel);
 
     const incomeList = document.createElement('div');
@@ -45,37 +57,53 @@ Tide.Categories = {
 
     // 添加新分类
     const addSection = document.createElement('div');
-    addSection.style.cssText = 'margin-top: 16px;';
+    addSection.style.cssText = 'margin-top:16px;';
 
-    const emojiInput = document.createElement('input');
-    emojiInput.type = 'text';
-    emojiInput.placeholder = '图标 emoji';
-    emojiInput.style.cssText = 'width: 60px; display: inline-block; margin-right: 4px;';
-    addSection.appendChild(emojiInput);
+    // 图标按钮（点击弹出选择器）
+    const iconBtn = document.createElement('button');
+    iconBtn.id = 'icon-picker-btn';
+    iconBtn.textContent = '💰';
+    iconBtn.style.cssText = 'width:44px;height:44px;font-size:22px;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);cursor:pointer;margin-right:4px;vertical-align:middle;';
+    iconBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      self._toggleIconPicker(iconBtn);
+    });
+    addSection.appendChild(iconBtn);
 
     const nameInput = document.createElement('input');
     nameInput.type = 'text';
     nameInput.placeholder = '分类名称';
-    nameInput.style.cssText = 'width: calc(100% - 170px); display: inline-block; margin-right: 4px;';
+    nameInput.style.cssText = 'width:calc(100% - 160px);display:inline-block;margin-right:4px;vertical-align:middle;';
     addSection.appendChild(nameInput);
 
     const typeSelect = document.createElement('select');
-    typeSelect.style.cssText = 'width: 60px; display: inline-block; margin-right: 4px;';
-    const opt1 = document.createElement('option');
-    opt1.value = 'expense';
-    opt1.textContent = '支出';
-    typeSelect.appendChild(opt1);
-    const opt2 = document.createElement('option');
-    opt2.value = 'income';
-    opt2.textContent = '收入';
-    typeSelect.appendChild(opt2);
+    typeSelect.style.cssText = 'width:60px;display:inline-block;margin-right:4px;vertical-align:middle;';
+    typeSelect.innerHTML = '<option value="expense">支出</option><option value="income">收入</option>';
     addSection.appendChild(typeSelect);
 
     const addBtn = document.createElement('button');
     addBtn.className = 'btn btn-primary';
     addBtn.textContent = '+';
-    addBtn.style.cssText = 'width: 36px; padding: 6px;';
+    addBtn.style.cssText = 'width:36px;padding:6px;vertical-align:middle;';
     addSection.appendChild(addBtn);
+
+    // 图标选择面板（默认隐藏）
+    const picker = document.createElement('div');
+    picker.id = 'icon-picker-panel';
+    picker.style.cssText = 'display:none;margin-top:8px;padding:8px;background:var(--bg-card);border-radius:var(--radius);display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-height:200px;overflow-y:auto;';
+    Tide.CategoryIcons.forEach(function(ic) {
+      const item = document.createElement('button');
+      item.textContent = ic;
+      item.style.cssText = 'font-size:20px;padding:6px;background:transparent;border:none;border-radius:6px;cursor:pointer;transition:background .15s;';
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        iconBtn.textContent = ic;
+        picker.style.display = 'none';
+        self._pickerVisible = false;
+      });
+      picker.appendChild(item);
+    });
+    addSection.appendChild(picker);
 
     section.appendChild(addSection);
     container.appendChild(section);
@@ -85,25 +113,37 @@ Tide.Categories = {
 
     // 添加事件
     addBtn.addEventListener('click', function() {
-      const emoji = emojiInput.value.trim();
+      const icon = iconBtn.textContent;
       const name = nameInput.value.trim();
       const type = typeSelect.value;
-
-      if (!name) {
-        Tide.toast('请输入分类名称');
-        return;
-      }
-      if (!emoji) {
-        Tide.toast('请输入图标 emoji');
-        return;
-      }
-
-      self._addCategory(emoji, name, type).then(function() {
-        emojiInput.value = '';
+      if (!name) { Tide.toast('请输入分类名称'); return; }
+      self._addCategory(icon, name, type).then(function() {
         nameInput.value = '';
+        iconBtn.textContent = '💰';
         self._renderExistingCategories(expenseList, incomeList);
       });
     });
+  },
+
+  _toggleIconPicker: function(btn) {
+    const picker = document.getElementById('icon-picker-panel');
+    if (!picker) return;
+    this._pickerVisible = !this._pickerVisible;
+    picker.style.display = this._pickerVisible ? 'grid' : 'none';
+
+    // 点击其他地方关闭
+    if (this._pickerVisible) {
+      const self = this;
+      setTimeout(function() {
+        document.addEventListener('click', function closePicker(e) {
+          if (!picker.contains(e.target) && e.target !== btn) {
+            picker.style.display = 'none';
+            self._pickerVisible = false;
+            document.removeEventListener('click', closePicker);
+          }
+        });
+      }, 50);
+    }
   },
 
   _renderExistingCategories: function(expenseList, incomeList) {
@@ -115,52 +155,50 @@ Tide.Categories = {
       cats.forEach(function(cat) {
         const row = document.createElement('div');
         row.className = 'setting-row';
-        row.style.cssText = 'display: flex; align-items: center; gap: 8px;';
+        row.style.cssText = 'display:flex;align-items:center;gap:8px;';
 
-        const emoji = document.createElement('span');
-        emoji.textContent = cat.emoji || '💰';
-        emoji.style.cssText = 'font-size: 20px;';
-        row.appendChild(emoji);
+        const iconSpan = document.createElement('span');
+        iconSpan.textContent = cat.icon || '💰';
+        iconSpan.style.cssText = 'font-size:20px;';
+        row.appendChild(iconSpan);
 
         const name = document.createElement('span');
         name.textContent = cat.name;
-        name.style.cssText = 'flex: 1;';
+        name.style.cssText = 'flex:1;';
         row.appendChild(name);
 
         const delBtn = document.createElement('button');
         delBtn.className = 'btn btn-outline';
         delBtn.textContent = '删除';
-        delBtn.style.cssText = 'font-size: 12px; padding: 2px 8px;';
+        delBtn.style.cssText = 'font-size:12px;padding:2px 8px;';
         delBtn.addEventListener('click', function() {
+          if (!confirm('确定删除「' + cat.name + '」？')) return;
           self._deleteCategory(cat.id).then(function() {
             self._renderExistingCategories(expenseList, incomeList);
           });
         });
         row.appendChild(delBtn);
 
-        if (cat.type === 'expense') {
-          expenseList.appendChild(row);
-        } else {
-          incomeList.appendChild(row);
-        }
+        if (cat.type === 'expense') expenseList.appendChild(row);
+        else incomeList.appendChild(row);
       });
+    }).catch(function(err) {
+      console.error('Failed to load categories from IndexedDB:', err);
     });
   },
 
-  _addCategory: async function(emoji, name, type) {
+  _addCategory: async function(icon, name, type) {
     try {
       const result = await Tide.apiPost('/categories', {
-        emoji: emoji,
+        icon: icon,
         name: name,
         type: type
       });
-
-      // 同步到本地
       const cat = result.category || result;
       if (cat && cat.id) {
         await Tide.dbPut('categories', cat);
+        await Tide.syncPush();
       }
-
       Tide.toast('分类已添加');
     } catch (err) {
       Tide.toast('添加失败: ' + (err.message || '未知错误'));
@@ -168,11 +206,10 @@ Tide.Categories = {
   },
 
   _deleteCategory: async function(id) {
-    if (!confirm('确定删除此分类？')) return;
-
     try {
       await Tide.apiDelete('/categories/' + id);
       await Tide.dbDelete('categories', id);
+      await Tide.syncPush();
       Tide.toast('已删除');
     } catch (err) {
       Tide.toast('删除失败: ' + (err.message || '未知错误'));

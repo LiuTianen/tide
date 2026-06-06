@@ -190,7 +190,7 @@ Tide.Stats = {
         row.className = 'cat-row';
 
         const emojiSpan = document.createElement('span');
-        emojiSpan.textContent = info.emoji || '💰';
+        emojiSpan.textContent = info.icon || '💰';
         emojiSpan.style.cssText = 'margin-right: 8px;';
         row.appendChild(emojiSpan);
 

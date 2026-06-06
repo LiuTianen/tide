@@ -149,7 +149,7 @@ Tide.Transactions = {
 
       const emoji = document.createElement('span');
       emoji.className = 'emoji';
-      emoji.textContent = cat.emoji || '💰';
+      emoji.textContent = cat.icon || '💰';
       chip.appendChild(emoji);
 
       const name = document.createElement('span');
@@ -190,7 +190,7 @@ Tide.Transactions = {
       type: self._type,
       category_id: self._selectedCatId,
       category_name: cat ? cat.name : '',
-      category_emoji: cat ? (cat.emoji || '💰') : '💰',
+      category_emoji: cat ? (cat.icon || '💰') : '💰',
       date: dateInput.value || new Date().toISOString().slice(0, 10),
       note: noteInput.value.trim(),
       tags: [],
