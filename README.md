@@ -55,14 +55,6 @@ tide/
 
 ## 🚀 部署
 
-与 [晚风](https://github.com/LiuTianen/wanfeng) 共用 ivywxx.cn 服务器：
-
-```
-ivywxx.cn
-├── /         → 晚风（图文日记）
-└── /tide/    → 潮汐（记账）
-```
-
 ```bash
 # 前端
 rsync /root/tide/js/file.js root@host:/var/www/tide/js/file.js
