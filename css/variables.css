@@ -1,0 +1,20 @@
+/* 潮汐 (Tide) — 设计令牌 */
+:root {
+  --bg: #141414;
+  --bg-card: #1a1a1a;
+  --bg-hover: #222;
+  --border: rgba(255,255,255,.06);
+  --text: #e0d8cc;
+  --text-dim: #7a7568;
+  --text-faint: #555;
+  --gold: #c9a96e;
+  --gold-dim: rgba(201,169,110,.12);
+  --red: #c94e4e;
+  --green: #6ebf8b;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'Noto Serif SC', 'Source Han Serif SC', STSong, serif;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}

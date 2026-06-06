@@ -1,0 +1,25 @@
+/* 潮汐 — 暗黑基础 */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-sans);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+::selection{background:var(--gold-dim);color:var(--gold)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--text-faint);border-radius:2px}
+a{color:var(--gold);text-decoration:none}
+button{border:none;background:none;color:inherit;font:inherit;cursor:pointer}
+input,select,textarea{
+  font:inherit;color:var(--text);
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:10px 14px;outline:none;
+  transition:border-color .2s;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+.hidden{display:none!important}

@@ -1,0 +1,61 @@
+/* 潮汐 — 页面样式（按需扩展） */
+/* 登录/注册页 */
+.auth-page{display:flex;flex-direction:column;align-items:center;padding-top:12vh}
+.auth-page .logo{font-family:var(--font-serif);font-size:2rem;color:var(--gold);margin-bottom:32px}
+.auth-page .tab-row{display:flex;gap:0;margin-bottom:24px;width:100%;max-width:300px}
+.auth-page .tab-row button{
+  flex:1;padding:8px;text-align:center;font-size:.9rem;
+  color:var(--text-dim);border-bottom:2px solid transparent;
+  transition:all .2s;
+}
+.auth-page .tab-row button.active{color:var(--gold);border-color:var(--gold)}
+.auth-page form{width:100%;max-width:300px;display:flex;flex-direction:column;gap:12px}
+/* 记账页 */
+.add-page .amount-input{margin-bottom:20px}
+.add-page .type-switch{display:flex;gap:0;margin-bottom:16px}
+.add-page .type-switch button{
+  flex:1;padding:10px;text-align:center;font-size:.9rem;
+  background:var(--bg-card);color:var(--text-dim);
+  transition:all .2s;
+}
+.add-page .type-switch button:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.add-page .type-switch button:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.add-page .type-switch button.active-expense{background:rgba(201,78,78,.2);color:var(--red)}
+.add-page .type-switch button.active-income{background:rgba(110,191,139,.2);color:var(--green)}
+.add-page .cat-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.add-page .cat-scroll::-webkit-scrollbar{display:none}
+.add-page .cat-chip{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:8px 14px;border-radius:var(--radius);background:var(--bg-card);
+  font-size:.75rem;color:var(--text-dim);transition:all .2s;
+}
+.add-page .cat-chip .emoji{font-size:1.4rem}
+.add-page .cat-chip.selected{background:var(--gold-dim);color:var(--gold)}
+.add-page .extra-row{display:flex;gap:12px;margin-top:12px}
+.add-page .extra-row>*{flex:1}
+/* 列表页 */
+.list-page .month-select{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 0 16px}
+.list-page .month-select .month-label{font-family:var(--font-serif);font-size:1rem}
+.list-page .month-select button{font-size:1.2rem;color:var(--text-dim);padding:4px 8px}
+.tx-card{display:flex;align-items:center;gap:12px;background:var(--bg-card);border-radius:var(--radius);padding:12px 14px;margin-bottom:8px}
+.tx-card .cat-emoji{font-size:1.5rem;flex-shrink:0}
+.tx-card .tx-info{flex:1;min-width:0}
+.tx-card .tx-category{font-size:.85rem;font-weight:500}
+.tx-card .tx-note{font-size:.75rem;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx-card .tx-tags{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
+.tx-card .tx-amount{font-size:1.1rem;font-weight:500;text-align:right}
+/* 统计页 */
+.stats-page .summary{display:flex;gap:12px;margin-bottom:20px}
+.stats-page .summary-card{flex:1;background:var(--bg-card);border-radius:var(--radius);padding:16px;text-align:center}
+.stats-page .summary-card .label{font-size:.75rem;color:var(--text-dim)}
+.stats-page .summary-card .value{font-size:1.4rem;font-weight:500;margin-top:4px}
+.stats-page .chart-wrap{background:var(--bg-card);border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.stats-page .chart-wrap canvas{width:100%}
+.stats-page .cat-list .cat-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.stats-page .cat-list .cat-row:last-child{border-bottom:none}
+.stats-page .cat-row .bar{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.stats-page .cat-row .bar-fill{height:100%;background:var(--gold);border-radius:2px}
+/* 设置页 */
+.settings-page .section{margin-bottom:24px}
+.settings-page .section-title{font-size:.75rem;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.settings-page .setting-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}

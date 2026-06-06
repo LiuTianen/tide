@@ -1,0 +1,51 @@
+/* 潮汐 — 组件 */
+.card{
+  background:var(--bg-card);border-radius:var(--radius);
+  padding:14px 16px;margin-bottom:10px;
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 20px;border-radius:var(--radius-sm);
+  font-size:.9rem;transition:all .2s;
+}
+.btn-primary{
+  background:var(--gold);color:var(--bg);font-weight:500;
+}
+.btn-primary:active{opacity:.8}
+.btn-outline{
+  border:1px solid var(--gold);color:var(--gold);
+}
+.btn-outline:active{background:var(--gold-dim)}
+.btn-block{width:100%}
+.input-lg input{
+  font-size:2rem;text-align:center;
+  padding:16px;border:none;border-radius:var(--radius);
+}
+.tag{
+  display:inline-flex;padding:2px 8px;border-radius:100px;
+  font-size:.7rem;background:var(--gold-dim);color:var(--gold);
+}
+.label{font-size:.75rem;color:var(--text-dim);margin-bottom:4px;display:block}
+.badge{
+  font-size:.7rem;padding:2px 8px;border-radius:100px;
+}
+.badge-expense{background:rgba(201,78,78,.15);color:var(--red)}
+.badge-income{background:rgba(110,191,139,.15);color:var(--green)}
+.amount-expense{color:var(--red)}
+.amount-income{color:var(--green)}
+.date-divider{
+  text-align:center;padding:20px 0 12px;
+  font-family:var(--font-serif);font-size:.85rem;color:var(--text-dim);
+}
+.empty-state{
+  text-align:center;padding:60px 20px;color:var(--text-dim);
+}
+.empty-state .icon{font-size:3rem;margin-bottom:12px;opacity:.3}
+.toast{
+  position:absolute;top:16px;left:50%;transform:translateX(-50%);
+  background:var(--bg-card);border:1px solid var(--gold);
+  color:var(--gold);padding:8px 20px;border-radius:100px;
+  font-size:.85rem;z-index:100;pointer-events:none;
+  animation:toastIn .3s ease;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
